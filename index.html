@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <link rel="icon" href="239089.jpg">
+        <title>
+            Thunder Shift || W1p30u7
+        </title>
+        <style>
+            body{
+                background-color: rgb(0, 230, 247);
+            }
+        </style>
+    </head>
+    <body onload = "setColor();" onkeypress ="invertGrav();">
+    	THUNDER SHIFT || W1p30uT
+        <select name="gameColor" onchange="setColor(0)" id="gameColor" style="width:150px;font-size:25px;border-style:none;background-color:rgb(170, 170, 170);">
+            <option selected value="Colorful">Colorful</option>
+            <option value="Dark">Dark</option>
+        </select>
+        <b><i>
+        Press any key to move the block
+        </i></b>
+        <input type="button" name = "invert" id = "invert" value = "Flip" onclick="invertGrav()" style="background-color: yellow;width: 100px;height: 45px;margin-left: 20%;opacity: 0.8;color:rgb(1, 25, 39);border-radius: 32%;font-size: 25px;box-shadow: 0 2px rgb(223, 168, 168);">
+        <canvas name = "myCanvas" id = "myCanvas" height="540" width="1230" style="border: 0px solid rgb(255, 255, 255)">
+            
+        </canvas>
+        <script>
+            blockPos = 440;
+            obstX = 1000;
+            bgColor = document.getElementById("gameColor");
+
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var grd=ctx.createLinearGradient(100,440,160,500);
+            var grd1=ctx.createLinearGradient(100,40,160,100);
+        		  var obstColor;
+            
+            
+            function setColor(init = 1){
+
+                if(bgColor.value == "Colorful"){
+                    canvas.style.background = "linear-gradient(to bottom right, whitesmoke, gray, blue, green, red, orange, yellow)";
+                    
+                    grd.addColorStop(0,"red");
+                    grd.addColorStop(1,"black");
+                    grd1.addColorStop(0,"red");
+                    grd1.addColorStop(1,"black");
+                    
+                    obstColor = "black";
+                    
+                }
+                else if(bgColor.value == "Dark"){
+                    canvas.style.background = "linear-gradient(to bottom right, black, whitesmoke,black,blue,black,black)";
+
+                    grd.addColorStop(0,"green");
+                    grd.addColorStop(1,"black");
+                    grd1.addColorStop(0,"green");
+                    grd1.addColorStop(1,"black");
+                    
+                    obstColor = "seagreen";
+                    
+                }
+                invertGrav(0);
+                if (init == 1) setObstPos();
+            }
+
+            function invertGrav(mov = 1) {
+                ctx.clearRect(100, blockPos, 60, 60);
+                
+                if (mov == 1) {
+                  if(blockPos == 40) blockPos = 440;
+                  else blockPos = 40;
+                }
+
+                if (blockPos == 40) ctx.fillStyle = grd1;
+                else ctx.fillStyle = grd;
+                  
+                ctx.fillRect(100,blockPos,60,60);
+            }
+
+            function setObstPos() {
+                ctx.fillStyle = obstColor;
+                ctx.fillRect(obstX, 200, 20, 500);
+                moveObst();
+            }
+
+            function moveObst(){
+                setInterval(translateObj, 10);
+            }
+
+            function translateObj() {
+                ctx.clearRect(obstX, 200, 20, 500);
+                obstX = obstX - 5;
+                ctx.fillStyle = obstColor;
+                ctx.fillRect(obstX, 200, 20, 500);
+
+            }
+
+        </script>
+    </body>
+</html>
